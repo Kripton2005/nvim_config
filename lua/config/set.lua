@@ -58,8 +58,7 @@ vim.opt.sidescrolloff = 8
 -- Scroll 1 character at a time (smoother than jumping)
 vim.opt.sidescroll = 1
 
--- Point Neovim to your Anaconda python that has pynvim installed
-vim.g.python3_host_prog = '/home/cristian/anaconda3/bin/python3'
+vim.g.python3_host_prog = '/usr/bin/python3'
 
 vim.opt.backupcopy = "yes"
 
