@@ -58,8 +58,24 @@ vim.opt.sidescrolloff = 8
 -- Scroll 1 character at a time (smoother than jumping)
 vim.opt.sidescroll = 1
 
-vim.g.python3_host_prog = '/usr/bin/python3'
+local home = vim.fn.expand("~")
+local venv_path = home .. "/work_env"
+local venv_python = venv_path .. "/bin/python"
+
+vim.g.python3_host_prog = venv_python
 
 vim.opt.backupcopy = "yes"
 
 vim.opt.guicursor = "v-c-i:ver25"
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.py",
+  callback = function(args)
+    -- Tell Neovim to format using the client named "ruff"
+    vim.lsp.buf.format({
+      bufnr = args.buf,
+      id = vim.lsp.get_clients({ name = "ruff", bufnr = args.buf })[1].id,
+      async = false
+    })
+  end,
+})
