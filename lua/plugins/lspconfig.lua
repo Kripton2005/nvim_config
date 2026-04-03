@@ -26,16 +26,12 @@ return {
 
       vim.lsp.enable('asm_lsp')
       vim.lsp.enable('rust_analyzer')
+      vim.lsp.enable('pyright')
 
       local home = vim.fn.expand("~")
       local venv_path = home .. "/work_env"
 
-      vim.lsp.config('pyright', {
-        cmd = { venv_path .. "/bin/pyright-langserver", "--stdio" },
-      })
-      vim.lsp.enable('pyright')
-
-      -- 3. Adapt Ruff (Python Formatting/Linting)
+      -- Adapt Ruff (Python Formatting/Linting)
       vim.lsp.config('ruff', {
         cmd = { venv_path .. "/bin/ruff", "server" },
       })
