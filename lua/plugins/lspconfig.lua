@@ -28,15 +28,6 @@ return {
       vim.lsp.enable('rust_analyzer')
       vim.lsp.enable('pyright')
 
-      local home = vim.fn.expand("~")
-      local venv_path = home .. "/work_env"
-
-      -- Adapt Ruff (Python Formatting/Linting)
-      vim.lsp.config('ruff', {
-        cmd = { venv_path .. "/bin/ruff", "server" },
-      })
-      vim.lsp.enable('ruff')
-
       vim.lsp.config('lua_ls', {
         settings = {
           Lua = {

@@ -67,15 +67,3 @@ vim.g.python3_host_prog = venv_python
 vim.opt.backupcopy = "yes"
 
 vim.opt.guicursor = "v-c-i:ver25"
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.py",
-  callback = function(args)
-    -- Tell Neovim to format using the client named "ruff"
-    vim.lsp.buf.format({
-      bufnr = args.buf,
-      id = vim.lsp.get_clients({ name = "ruff", bufnr = args.buf })[1].id,
-      async = false
-    })
-  end,
-})
