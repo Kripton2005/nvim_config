@@ -21,12 +21,29 @@ return {
         },
       })
 
+
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      ---@diagnostic disable-next-line: inject-field
+      capabilities.offsetEncoding = { "utf-16" }
+
       local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
       vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
 
       vim.lsp.enable('asm_lsp')
       vim.lsp.enable('rust_analyzer')
-      vim.lsp.enable('pyright')
+
+      local venv_path = vim.fn.expand("~") .. "/work_env"
+
+      vim.lsp.enable('pyright', {
+        settings = {
+          python = {
+            pythonPath = venv_path .. "/bin/python",
+            venvPath = vim.fn.expand("~"),
+            venv = "work_env"
+          }
+        }
+      })
 
       vim.lsp.config('lua_ls', {
         settings = {
@@ -42,11 +59,6 @@ return {
         }
       })
       vim.lsp.enable('lua_ls')
-
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-      ---@diagnostic disable-next-line: inject-field
-      capabilities.offsetEncoding = { "utf-16" }
 
       vim.lsp.config('clangd', {
         capabilities = capabilities,
